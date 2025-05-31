@@ -1,17 +1,15 @@
 package com.codewithmosh.store.controllers;
 
 import com.codewithmosh.store.dtos.ProductDto;
-import com.codewithmosh.store.dtos.UserDto;
 import com.codewithmosh.store.entities.Product;
 import com.codewithmosh.store.mappers.ProductMapper;
 import com.codewithmosh.store.repositories.ProductRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
+
 @AllArgsConstructor
 @RestController
 @RequestMapping("/products")
@@ -37,10 +35,10 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getUser(@PathVariable Long id) {
-        var user = productRepository.findById(id).orElse(null);
-        if (user == null) {
+        var product = productRepository.findById(id).orElse(null);
+        if (product == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(productMapper.toDto(user));
+        return ResponseEntity.ok(productMapper.toDto(product));
     }
 }
